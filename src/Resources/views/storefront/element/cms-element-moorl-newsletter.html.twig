@@ -7,7 +7,8 @@
 </style>
 
 <div class="cms-element-form cms-element-{{ element.type }}">
-    <form action="{{ seoUrl('frontend.form.newsletter.register.handle') }}" method="post" data-form-csrf-handler="true" data-form-validation="true">
+    <form action="{{ seoUrl('frontend.form.newsletter.register.handle') }}" method="post" data-form-csrf-handler="true" data-form-handler="true"
+          {% block cms_element_moorl_newsletter_form_attributes %}{% endblock %}>
         <div class="moorl-input-container">
             {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-input.html.twig'
                 with {
@@ -27,6 +28,14 @@
                 {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-privacy.html.twig' %}
             </div>
         {% endif %}
+
+        {% block cms_element_moorl_newsletter_captcha %}
+            <div class="moorl-newsletter-captcha">
+                {% sw_include '@Storefront/storefront/component/captcha/base.html.twig' with {
+                    additionalClass: 'col-12'
+                } %}
+            </div>
+        {% endblock %}
 
         <div class="form-hidden-fields">
             <input type="hidden" name="option" value="{{ constant('Shopware\\Storefront\\Controller\\FormController::SUBSCRIBE') }}">
